@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class LoginFrame {
 	
@@ -50,7 +51,20 @@ public class LoginFrame {
 		panel1.add(loginBtn);
 		loginBtn.addActionListener(new ActionListener() {	//로그인버튼
 			public void actionPerformed(ActionEvent e) {
+				//공란처리
+				if (loginIdT.getText().isBlank() || loginPwdT.getText().isBlank() ) {
+					JOptionPane.showInternalMessageDialog(null, "아이디 혹은 비밀번호가 공란입니다.");
+				}
+				
+				if(memberManager.MangerLogin(loginIdT.getText(), loginPwdT.getText())) {
+					frame.getContentPane().removeAll();				
+					ManagerFrame mf = new ManagerFrame(frame);
+
+				}
+				
+				
 				if(memberManager.login(loginIdT.getText(), loginPwdT.getText())) {
+		
 		
 				frame.getContentPane().removeAll();				
 				AfterLoginFrame alf = new AfterLoginFrame(frame);
